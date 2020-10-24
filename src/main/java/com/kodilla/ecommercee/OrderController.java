@@ -27,12 +27,12 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
     public OrderDto getProduct(@RequestParam Long orderId) {
-        return new OrderDto(1L,1L, new LocalDate(2020,1,1));
+        return new OrderDto(1L,1L, 2020,2,2);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
     public OrderDto updateOrder() {
-        return new OrderDto(1L,2L,new LocalDate(2020,1,5));
+        return new OrderDto(1L,2L,2020,1,1);
     }
 
 

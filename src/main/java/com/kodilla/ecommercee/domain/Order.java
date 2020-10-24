@@ -7,11 +7,17 @@ import java.time.LocalDate;
 
 
 @Getter
-@AllArgsConstructor
+
 public class Order {
 
-    private Long orderId;
+    private Long Id;
     private Long cartId;
     private LocalDate orderDate;
+
+    public Order(Long id, Long cartId, int year, int month, int day) {
+        this.Id = id;
+        this.cartId = cartId;
+        this.orderDate = LocalDate.of(year,month,day);
+    }
 
 }
