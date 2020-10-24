@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.UserDto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +16,21 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getUser")
-    public UserDto getUser(Long userId) {
+    public UserDto getUser(@RequestParam Long userId) {
         return new UserDto(1L, "Hanna Montana", "QWERTY1234", "password", false);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser")
-    public void createUser(UserDto userDto) {
+    public void createUser(@RequestBody UserDto userDto) {
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser")
-    public void banUser(Long userId) {
+    @RequestMapping(method = RequestMethod.PUT, value = "banUser")
+    public void banUser(@RequestParam long userId) {
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "createUserKey")
+    public String createUserKey(@RequestParam String username, @RequestParam String password) {
+        return "QWERTY123";
     }
 
 }
