@@ -30,7 +30,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "updateProduct")
+    @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return new ProductDto(1L, "Product test - update");
     }
