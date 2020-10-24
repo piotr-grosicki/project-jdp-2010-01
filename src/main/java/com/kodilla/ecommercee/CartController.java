@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("v1/carts")
+@RequestMapping("/v1/carts")
 public class CartController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getCart")
