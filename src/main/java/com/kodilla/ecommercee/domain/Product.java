@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,9 @@ public class Product {
     private Long id;
     @Column(name = "productName")
     private String productName;
+    @ManyToOne
+    @JoinColumn(name = "groupOfProduct")
+    public Group group;
+
 
 }
