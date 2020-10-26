@@ -18,7 +18,7 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId) {
-        return new GroupDto(1L, "test");
+        return new GroupDto(1L, "test",new ArrayList<>());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup")
@@ -27,6 +27,6 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-        return new GroupDto(2L, "updated");
+        return new GroupDto(2L, "updated",new ArrayList<>());
     }
 }

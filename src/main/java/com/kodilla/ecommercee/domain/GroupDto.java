@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupDto {
-    Long id;
-    String groupName;
+    private Long id;
+    private String groupName;
+    private List<Product> productList;
 }

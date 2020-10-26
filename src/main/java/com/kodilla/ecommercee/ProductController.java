@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId) {
-        return new ProductDto(1L, "Product test");
+        return new ProductDto(1L, "Product test",new Group());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct")
@@ -32,6 +33,6 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto(1L, "Product test - update");
+        return new ProductDto(1L, "Product test - update",new Group());
     }
 }
