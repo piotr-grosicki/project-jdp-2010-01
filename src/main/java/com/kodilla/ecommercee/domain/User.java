@@ -36,19 +36,19 @@ public class User {
     public Long getId() {
         return id;
     }
-
+    @Column(name = "USER_NAME")
     public String getUserName() {
         return userName;
     }
-
+    @Column(name = "KEY")
     public String getUserKey() {
         return userKey;
     }
-
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
-
+    @Column(name = "STATUS")
     public boolean isStatus() {
         return status;
     }
@@ -79,7 +79,7 @@ public class User {
         this.status = status;
     }
 
-    public void setCart(Cart cart) {
+    private void setCart(Cart cart) {
         this.cart = cart;
     }
 

@@ -37,6 +37,24 @@ public class Order {
         this.id = id;
     }
 
+    @Column(name = "CART_ID")
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    @Column(name = "ORDER_DATE")
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Cart getCart() {
         return cart;

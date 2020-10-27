@@ -42,7 +42,7 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "JOIN_CART_PRODUCT",
+            name = "JOIN_CART_PRODUCT_ENTITY",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
@@ -53,6 +53,7 @@ public class Product {
     private void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
+
     public void setId(Long id) {
         this.id = id;
     }

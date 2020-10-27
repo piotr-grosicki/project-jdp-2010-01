@@ -64,5 +64,6 @@ public class Cart {
     private void setProductsAddedToCart(List<Product> productsAddedToCart) {
         this.productsAddedToCart = productsAddedToCart;
     }
+
 }
 
