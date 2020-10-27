@@ -8,37 +8,64 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
 @Entity
 @Table(name = "CARTS")
 public class Cart {
+
+    private Long Id;
+    private Long userId;
+    private List<Product> productsAddedToCart;
+    private Order order;
+
+    public Cart(User user) {
+        this.userId = userId;
+    }
+
+    public Cart() {
+    }
 
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true)
-    private Long Id;
+    public Long getId() {
+        return Id;
+    }
 
     @NotNull
     @Column(name = "USER_ID")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
-    private Long userId;
+    public Long getUserId() {
+        return userId;
+    }
 
-    @Column(name = "PRODUCTS_IN_CART")
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "JOIN_PRODUCT_CART",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
-            inverseJoinColumns = {JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
-    )
-    private List<Product> productsAddedToCart;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "CARTS")
+    public List<Product> getProductsAddedToCart() {
+        return productsAddedToCart;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    public Order getOrder() {
+        return order;
+    }
 
+    private void setOrder(Order order) {
+        this.order = order;
+    }
+
+    private void setId(Long id) {
+        Id = id;
+    }
+
+    private void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    private void setProductsAddedToCart(List<Product> productsAddedToCart) {
+        this.productsAddedToCart = productsAddedToCart;
+    }
 }
+
