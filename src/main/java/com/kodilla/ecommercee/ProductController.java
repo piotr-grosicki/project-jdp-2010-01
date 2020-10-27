@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/products")
+@RequestMapping("/v1/products")
 public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
