@@ -10,17 +10,17 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "product")
+@Entity(name = "PRODUCT_ENTITY")
 
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "productName")
+    @Column(name = "PRODUCT_NAME")
     private String productName;
     @ManyToOne
-    @JoinColumn(name = "groupOfProduct")
+    @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group group;
 
 
