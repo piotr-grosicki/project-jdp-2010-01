@@ -1,9 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -15,10 +11,12 @@ public class Cart {
     private Long Id;
     private Long userId;
     private List<Product> productsAddedToCart;
-    private Order order;
+    //private Order order;
 
-    public Cart(User user) {
+    public Cart(Long id, Long userId, List<Product> productsAddedToCart) {
+        Id = id;
         this.userId = userId;
+        this.productsAddedToCart = productsAddedToCart;
     }
 
     public Cart() {
@@ -34,19 +32,19 @@ public class Cart {
 
     @NotNull
     @Column(name = "USER_ID")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
+   /* @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")*/
     public Long getUserId() {
         return userId;
     }
 
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "CARTS")
+    /*@ManyToMany(cascade = CascadeType.ALL, mappedBy = "CARTS")
     public List<Product> getProductsAddedToCart() {
         return productsAddedToCart;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    /*@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
@@ -54,7 +52,7 @@ public class Cart {
 
     private void setOrder(Order order) {
         this.order = order;
-    }
+    }*/
 
     private void setId(Long id) {
         Id = id;
