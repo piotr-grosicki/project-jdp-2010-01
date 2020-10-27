@@ -29,7 +29,6 @@ public class Order {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true)
-
     public Long getId() {
         return id;
     }
@@ -43,7 +42,7 @@ public class Order {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    private void setCart(Cart cart) {
         this.cart = cart;
     }
 }

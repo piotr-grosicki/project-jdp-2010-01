@@ -9,13 +9,13 @@ import java.util.List;
 public class Cart {
 
     private Long Id;
-    private Long userId;
+    private User user;
     private List<Product> productsAddedToCart;
     private Order order;
 
-    public Cart(Long id, Long userId, List<Product> productsAddedToCart) {
+    public Cart(Long id, User user, List<Product> productsAddedToCart) {
         Id = id;
-        this.userId = userId;
+        this.user = user;
         this.productsAddedToCart = productsAddedToCart;
     }
 
@@ -31,11 +31,11 @@ public class Cart {
     }
 
     @NotNull
-    @Column(name = "USER_ID")
+    @Column(name = "USER")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "CARTS")
@@ -57,8 +57,8 @@ public class Cart {
         Id = id;
     }
 
-    private void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     private void setProductsAddedToCart(List<Product> productsAddedToCart) {

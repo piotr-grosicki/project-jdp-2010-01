@@ -59,7 +59,7 @@ public class User {
         return cart;
     }
 
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 

@@ -50,7 +50,7 @@ public class Product {
         return carts;
     }
 
-    public void setCarts(List<Cart> carts) {
+    private void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
     public void setId(Long id) {
