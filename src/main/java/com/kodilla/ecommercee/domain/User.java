@@ -55,7 +55,7 @@ public class User {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART")
+    @JoinColumn(name = "CARTS")
     public Cart getCart() {
         return cart;
     }
