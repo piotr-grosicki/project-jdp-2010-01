@@ -1,26 +1,25 @@
 package com.kodilla.ecommercee.domain;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User {
 
     private Long id;
     private String userName;
     private String userKey;
     private String password;
-    private boolean status;
+    private boolean active;
     private Cart cart;
 
-    public User(Long id, String userName, String userKey, String password, boolean status) {
+    public User(Long id, String userName, String userKey, String password, boolean active) {
         this.id = id;
         this.userName = userName;
         this.userKey = userKey;
         this.password = password;
-        this.status = status;
+        this.active = active;
     }
 
     public User() {
@@ -50,12 +49,12 @@ public class User {
     }
 
     @Column(name = "STATUS")
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CARTS")
+    @JoinColumn(name = "CART_ID")
     public Cart getCart() {
         return cart;
     }
@@ -76,11 +75,12 @@ public class User {
         this.password = password;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean status) {
+        this.active = status;
     }
 
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
 }

@@ -21,7 +21,7 @@ public class UserMapper {
                 user.getUserName(),
                 user.getPassword(),
                 user.getUserKey(),
-                user.isStatus()
+                user.isActive()
         );
     }
 }
