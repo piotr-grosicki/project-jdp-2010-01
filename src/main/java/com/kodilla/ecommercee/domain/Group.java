@@ -13,17 +13,17 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "groupTable")
+@Entity(name = "GROUP_ENTITY")
 public class Group {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "groupId")
+    @Column(name = "GROUP_ID")
     private Long id;
-    @Column(name = "groupName")
+    @Column(name = "GROUP_NAME")
     private String groupName;
 
-    @Column(name = "productsList")
+    @Column(name = "PRODUCT_LIST")
     @OneToMany(targetEntity = Product.class, mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> productList = new ArrayList<>();
 
