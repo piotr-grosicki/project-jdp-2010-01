@@ -28,3 +28,4 @@ public class Group {
     private List<Product> productList = new ArrayList<>();
 
 }
+
