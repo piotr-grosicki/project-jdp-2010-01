@@ -37,6 +37,12 @@ public class Cart {
         return user;
     }
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
+    }
+
 
     private void setOrder(Order order) {
         this.order = order;
