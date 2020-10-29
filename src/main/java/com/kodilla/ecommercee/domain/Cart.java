@@ -38,9 +38,13 @@ public class Cart {
     }
 
 
-    private void setOrder(Order order) {
-        this.order = order;
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
     }
+
 
     private void setId(Long id) {
         Id = id;
@@ -52,5 +56,9 @@ public class Cart {
 
     private void setProductsAddedToCart(List<Product> productsAddedToCart) {
         this.productsAddedToCart = productsAddedToCart;
+    }
+
+    private void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -3,12 +3,14 @@ package com.kodilla.ecommercee.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-
-@Getter
-
+@Entity
+@Table(name = "ORDERS")
 public class Order {
 
     private Long id;
@@ -22,4 +24,18 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public Order() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    @Column(name = "ID", unique = true)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
