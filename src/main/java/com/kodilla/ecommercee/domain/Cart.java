@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,13 +11,13 @@ public class Cart {
 
     private Long Id;
     private User user;
-    private List<Product> productsAddedToCart;
+    //private List<Product> productsAddedToCart;
     private Order order;
+    private List<Product> products = new ArrayList<>();
 
-    public Cart(Long id, User user, List<Product> productsAddedToCart) {
+    public Cart(Long id, User user) {
         Id = id;
         this.user = user;
-        this.productsAddedToCart = productsAddedToCart;
     }
 
     public Cart() {
@@ -44,6 +45,21 @@ public class Cart {
     }
 
 
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @Column(name = "PRODUCTS_ADDED_TO_CART")
+    public List<Product> getProducts() {
+        return products;
+    }
+
+
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+
+
     private void setOrder(Order order) {
         this.order = order;
     }
@@ -56,7 +72,4 @@ public class Cart {
         this.user = user;
     }
 
-    private void setProductsAddedToCart(List<Product> productsAddedToCart) {
-        this.productsAddedToCart = productsAddedToCart;
-    }
 }
