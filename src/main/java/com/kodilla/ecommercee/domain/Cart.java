@@ -14,7 +14,7 @@ public class Cart {
     private Order order;
 
     public Cart(Long id, User user, List<Product> productsAddedToCart) {
-        Id = id;
+        this.Id = id;
         this.user = user;
         this.productsAddedToCart = productsAddedToCart;
     }

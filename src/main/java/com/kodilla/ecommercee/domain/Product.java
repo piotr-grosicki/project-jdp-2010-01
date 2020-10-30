@@ -6,13 +6,9 @@ import javax.persistence.*;
 
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
-    @Column(name = "PRODUCT_NAME")
     private String productName;
-    @ManyToOne
-    @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group group;
 
     public Product(Long id, String productName, Group group) {
@@ -24,14 +20,19 @@ public class Product {
     public Product() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
+    @Column(name = "PRODUCT_NAME")
     public String getProductName() {
         return productName;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group getGroup() {
         return group;
     }
