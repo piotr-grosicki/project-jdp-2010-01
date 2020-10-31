@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +18,11 @@ public class UserController {
     UserDbService service;
 
     UserMapper userMapper;
-
-    @RequestMapping(method = RequestMethod.GET, value = "getUsers")
-    public List<UserDto> getUsers() {
-        return new ArrayList<>();
-    }
+    UserDto userDto;
 
     @RequestMapping(method = RequestMethod.GET, value = "getUser")
     public UserDto getUser(@RequestParam Long userId) {
-        return new UserDto(1L, "Hanna Montana", "QWERTY1234", "password", false);
+        return userMapper.mapUserToUserDto(service.getUserById(userId));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -36,7 +31,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "banUser")
-    public void banUser(@RequestParam long userId) {
+    public UserDto banUser(@RequestParam long userId) {
+        return userMapper.mapUserToUserDto(service.saveUser(userMapper.mapUserDtoToUser(userDto)));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUserKey")
