@@ -4,12 +4,12 @@ import java.util.List;
 
 public class CartDto {
     private Long Id;
-    private User user;
-    private List<Product> productsInCart;
+    private UserDto userDto;
+    private List<ProductDto> productsInCart;
 
-    public CartDto(Long id, User user, List<Product> productsInCart) {
+    public CartDto(Long id, UserDto userDto, List<ProductDto> productsInCart) {
         Id = id;
-        this.user = user;
+        this.userDto = userDto;
         this.productsInCart = productsInCart;
     }
 
@@ -17,11 +17,11 @@ public class CartDto {
         return Id;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public List<Product> getProductsInCart() {
+    public List<ProductDto> getProductsInCart() {
         return productsInCart;
     }
 }
