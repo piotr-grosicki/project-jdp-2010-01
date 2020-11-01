@@ -13,6 +13,9 @@ public class CartDto {
         this.productsInCart = productsInCart;
     }
 
+    public CartDto() {
+    }
+
     public Long getId() {
         return Id;
     }
