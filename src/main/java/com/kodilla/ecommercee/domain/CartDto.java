@@ -1,14 +1,28 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
 public class CartDto {
     private Long Id;
-    private Long userId;
-    private List<Product> productsInCart;
+    private UserDto userDto;
+    private List<ProductDto> productsInCart;
+
+    public CartDto(Long id, UserDto userDto, List<ProductDto> productsInCart) {
+        Id = id;
+        this.userDto = userDto;
+        this.productsInCart = productsInCart;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public List<ProductDto> getProductsInCart() {
+        return productsInCart;
+    }
 }
+
