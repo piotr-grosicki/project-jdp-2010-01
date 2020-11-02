@@ -34,13 +34,13 @@ public class Product {
         return productName;
     }
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group getGroup() {
         return group;
     }
 
-    @ManyToMany (cascade =CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},

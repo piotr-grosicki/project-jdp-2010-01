@@ -73,12 +73,9 @@ public class ProductDaoTestSuite {
         Product product1 = new Product("Test Product");
         Product product2 = new Product("Test Product");
         Product product3 = new Product("Test Product");
-
-
         cart1.getProductsAddedToCart().add(product1);
         cart2.getProductsAddedToCart().add(product2);
         cart3.getProductsAddedToCart().add(product3);
-
         //When
         productRepository.save(product1);
         long prduct1Id = product1.getId();
@@ -90,7 +87,6 @@ public class ProductDaoTestSuite {
         Assert.assertNotEquals(0, prduct1Id);
         Assert.assertNotEquals(0, prduct2Id);
         Assert.assertNotEquals(0, prduct3Id);
-
         //CleanUp
         try {
             productRepository.deleteById(product1.getId());
@@ -107,11 +103,9 @@ public class ProductDaoTestSuite {
         Product product1 = new Product("Test Product1");
         Product product2 = new Product("Test Product2");
         Product product3 = new Product("Test Product3");
-
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
-
         //When
         Long id = product1.getId();
         Optional<Product> resultProduct = productRepository.findById(id);
