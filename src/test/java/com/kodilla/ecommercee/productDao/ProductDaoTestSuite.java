@@ -3,8 +3,7 @@ package com.kodilla.ecommercee.productDao;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.CartRepository;
+
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +62,7 @@ public class ProductDaoTestSuite {
             //do nothing
         }
     }
+
     @Test
     public void saveProductOnDatabaseWithCartTestSuite() {
         //Given
@@ -79,23 +78,18 @@ public class ProductDaoTestSuite {
         cart1.getProductsAddedToCart().add(product1);
         cart2.getProductsAddedToCart().add(product2);
         cart3.getProductsAddedToCart().add(product3);
-        product1.getCarts().add(cart1);
-        product1.getCarts().add(cart2);
-        product1.getCarts().add(cart3);
-        product2.getCarts().add(cart1);
-        product3.getCarts().add(cart1);
 
         //When
-       productRepository.save(product1);
-       long prduct1Id = product1.getId();
-       productRepository.save(product2);
+        productRepository.save(product1);
+        long prduct1Id = product1.getId();
+        productRepository.save(product2);
         long prduct2Id = product1.getId();
-       productRepository.save(product3);
+        productRepository.save(product3);
         long prduct3Id = product1.getId();
-       //Then
-        Assert.assertNotEquals(0,prduct1Id);
-        Assert.assertNotEquals(0,prduct2Id);
-        Assert.assertNotEquals(0,prduct3Id);
+        //Then
+        Assert.assertNotEquals(0, prduct1Id);
+        Assert.assertNotEquals(0, prduct2Id);
+        Assert.assertNotEquals(0, prduct3Id);
 
         //CleanUp
         try {

@@ -40,7 +40,7 @@ public class Product {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany (cascade =CascadeType.ALL)
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
