@@ -22,6 +22,12 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(Long id) {
+        Id = id;
+    }
+
+
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +36,6 @@ public class Cart {
         return Id;
     }
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
