@@ -23,6 +23,10 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(Long id) {
+        this.id = id;
+    }
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)

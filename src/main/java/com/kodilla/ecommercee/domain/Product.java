@@ -14,10 +14,8 @@ public class Product {
     public Group group;
     private List<Cart> carts = new ArrayList<>();
 
-    public Product(Long id, String productName, Group group) {
-        this.id = id;
+    public Product(String productName) {
         this.productName = productName;
-        this.group = group;
     }
 
     public Product() {
@@ -36,7 +34,7 @@ public class Product {
         return productName;
     }
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group getGroup() {
         return group;
