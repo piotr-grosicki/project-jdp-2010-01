@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 
+import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
@@ -23,6 +24,8 @@ public class ProductDaoTestSuite {
     ProductRepository productRepository;
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    CartRepository cartRepository;
 
     @Test
     public void saveProductOnDatabaseTestSuite() {
@@ -134,14 +137,17 @@ public class ProductDaoTestSuite {
         Long id = product1.getId();
         productRepository.deleteById(id);
         Optional<Product> resultProduct = productRepository.findById(id);
+
         //Then
         Assert.assertFalse(resultProduct.isPresent());
-        Assert.assertNotNull(cart);
-        Assert.assertNotNull(group);
+        Assert.assertNotNull(cartRepository.findById(cart.getId()));
+        Assert.assertNotNull(groupRepository.findById(group.getId()));
 
         //CleanUp
         try {
             productRepository.deleteById(id);
+            cartRepository.deleteById(cart.getId());
+            groupRepository.deleteById(group.getId());
 
         } catch (Exception e) {
             //do nothing
