@@ -22,7 +22,12 @@ public class User {
         this.active = active;
     }
 
-
+    public User(String userName, String userKey, String password, boolean active) {
+        this.userName = userName;
+        this.userKey = userKey;
+        this.password = password;
+        this.active = active;
+    }
 
     public User() {
     }

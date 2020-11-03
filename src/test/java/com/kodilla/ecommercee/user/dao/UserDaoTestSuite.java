@@ -26,29 +26,28 @@ public class UserDaoTestSuite {
     @Test
     public void saveUserOnDatabaseTestSuite() {
         //Given
-        User user = new User(1L, "UserName", "1234", "plokijuh", true);
+        User user = new User("UserName", "1234", "plokijuh", true);
         userDao.save(user);
 
         //When
         List<User> resultList = userDao.findAll();
 
-
-
         //Then
         Assert.assertNotEquals(0, resultList.size());
 
-
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
     }
 
     @Test
     public void saveUserOnDatabaseWithCartTestSuite() {
         //Given
-        User user = new User(1L, "UserName", "1234", "plokijuh", true);
-        Cart cart = new Cart(2L);
-
-        user.setCart(cart);
-
-        userDao.save(user);
+        User user2 = new User("UserName", "1234", "plokijuh", true);
+        Cart cart2 = new Cart();
+        user2.setCart(cart2);
+        userDao.save(user2);
 
         //When
         List<User> userList = userDao.findAll();
@@ -58,60 +57,64 @@ public class UserDaoTestSuite {
         Assert.assertNotEquals(0, userList.size());
         Assert.assertNotEquals(0, cartList.size());
 
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
     }
 
    @Test
     public void findUserByIdTestSuite() {
         //Given
-        User user = new User(1L, "UserName", "1", "plokijuh", true);
-        User user2 = new User(2L, "UserName1", "2", "plokijuh", true);
-        User user3 = new User(3L, "UserName2", "3", "plokijuh", true);
-        User user4 = new User(4L, "UserName3", "4", "plokijuh", true);
-
-        userDao.save(user);
+        User user1 = new User("UserName", "1", "plokijuh", true);
+        User user2 = new User( "UserName1", "2", "plokijuh", true);
+        userDao.save(user1);
         userDao.save(user2);
-        userDao.save(user3);
-        userDao.save(user4);
 
         //When
-        Long id = user2.getId();
+        Long id = user1.getId();
         Optional<User> findUser = userDao.findById(id);
 
         //Then
         Assert.assertTrue(findUser.isPresent());
+
+       //Clear
+       for (User input : userDao.findAll()) {
+           userDao.deleteById(input.getId());
+       }
     }
 
     @Test
     public void deleteUserByIdTestSuite() {
         //Given
-        User usr1 = new User(1L, "UserName", "1", "plokijuh", true);
-        User usr2 = new User(2L, "UserName1", "2", "plokijuh", true);
-        User usr3 = new User(3L, "UserName2", "3", "plokijuh", true);
-        User usr4 = new User(4L, "UserName3", "4", "plokijuh", true);
-        User usr5 = new User(5L, "UserName3", "4", "plokijuh", true);
-
-        userDao.save(usr1);
-        userDao.save(usr2);
-        userDao.save(usr3);
-        userDao.save(usr4);
-        userDao.save(usr5);
+        User user1 = new User("UserName", "1", "plokijuh", true);
+        Cart cart = new Cart();
+        user1.setCart(cart);
+        userDao.save(user1);
 
         //When
         List<User> usersBeforeDelete = userDao.findAll();
-        Long id = 5L;
-        userDao.deleteById(id);
+        List<Cart> cartsBeforeDelete = cartDao.findAll();
+        Long id1 = user1.getId();
+        userDao.deleteById(id1);
         List<User> usersAfterDelete = userDao.findAll();
+        List<Cart> cartsAfterDelete = cartDao.findAll();
 
         //Then
         Assert.assertTrue(usersBeforeDelete.size() > usersAfterDelete.size());
+        Assert.assertTrue(cartsBeforeDelete.size() > cartsAfterDelete.size());
 
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
     }
 
     @Test
     public void findUserByStatusTestSuite(){
         //Given
-        User user = new User(1L, "UserName", "1", "plokijuh", true);
-        User user2 = new User(2L, "UserName1", "2", "plokijuh", false);
+        User user = new User("UserName", "1", "plokijuh", true);
+        User user2 = new User("UserName1", "2", "plokijuh", false);
 
         userDao.save(user);
         userDao.save(user2);
@@ -122,7 +125,9 @@ public class UserDaoTestSuite {
         //Then
         Assert.assertNotEquals(0,users1.size());
 
-
-
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
     }
 }
