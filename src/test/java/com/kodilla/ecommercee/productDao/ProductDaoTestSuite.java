@@ -123,7 +123,11 @@ public class ProductDaoTestSuite {
     @Test
     public void deleteProductByIdTestSuite() {
         //Given
+        Cart cart = new Cart(1l);
+        Group group = new Group("Test group");
         Product product1 = new Product("Test Product1");
+        product1.setGroup(group);
+        cart.getProductsAddedToCart().add(product1);
         productRepository.save(product1);
 
         //When
@@ -132,9 +136,13 @@ public class ProductDaoTestSuite {
         Optional<Product> resultProduct = productRepository.findById(id);
         //Then
         Assert.assertFalse(resultProduct.isPresent());
+        Assert.assertNotNull(cart);
+        Assert.assertNotNull(group);
+
         //CleanUp
         try {
             productRepository.deleteById(id);
+
         } catch (Exception e) {
             //do nothing
         }
