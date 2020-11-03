@@ -15,8 +15,8 @@ public class UserController {
     @Autowired
     UserDbService service;
 
+    @Autowired
     UserMapper userMapper;
-    UserDto userDto;
 
     @RequestMapping(method = RequestMethod.GET, value = "getUser")
     public UserDto getUser(@RequestParam Long userId) {
