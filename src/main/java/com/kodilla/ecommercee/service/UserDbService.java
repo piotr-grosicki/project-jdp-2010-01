@@ -30,7 +30,7 @@ public class UserDbService {
         return repository.save(user);
     }
 
-    private String generateOneTimeKey(User user) {
+    public String generateOneTimeKey(User user) {
         String key = RandomString.make(20);
         user.setUserKey(key);
         log.info("One time key for " + user.getUserName() + " is: " + key);
@@ -38,5 +38,6 @@ public class UserDbService {
     }
 
     public void deleteUser(final Long id) {
+        repository.deleteById(id);
     }
 }

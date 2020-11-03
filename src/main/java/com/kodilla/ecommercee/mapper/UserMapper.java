@@ -3,9 +3,6 @@ package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.UserDto;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class UserMapper {
 
     public User mapUserDtoToUser(UserDto userDto) {
