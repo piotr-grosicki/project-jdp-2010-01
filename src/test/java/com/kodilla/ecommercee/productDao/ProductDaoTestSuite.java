@@ -70,9 +70,9 @@ public class ProductDaoTestSuite {
         Cart cart1 = new Cart(1L);
         Cart cart2 = new Cart(2L);
         Cart cart3 = new Cart(3L);
-        Product product1 = new Product("Test Product");
-        Product product2 = new Product("Test Product");
-        Product product3 = new Product("Test Product");
+        Product product1 = new Product("Test Product 1");
+        Product product2 = new Product("Test Product 2");
+        Product product3 = new Product("Test Product 3");
         cart1.getProductsAddedToCart().add(product1);
         cart2.getProductsAddedToCart().add(product2);
         cart3.getProductsAddedToCart().add(product3);
@@ -100,9 +100,9 @@ public class ProductDaoTestSuite {
     @Test
     public void findProductByIdTestSuite() {
         //Given
-        Product product1 = new Product("Test Product1");
-        Product product2 = new Product("Test Product2");
-        Product product3 = new Product("Test Product3");
+        Product product1 = new Product("Test Product 1");
+        Product product2 = new Product("Test Product 2");
+        Product product3 = new Product("Test Product 3");
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
