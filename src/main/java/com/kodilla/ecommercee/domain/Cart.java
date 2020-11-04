@@ -24,10 +24,13 @@ public class Cart {
     }
 
     public Cart(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-
+    public Cart(User user, List<Product> productsAddedToCart) {
+        this.user = user;
+        this.productsAddedToCart = productsAddedToCart;
+    }
 
     @Id
     @NotNull
@@ -48,7 +51,6 @@ public class Cart {
         return productsAddedToCart;
     }
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {

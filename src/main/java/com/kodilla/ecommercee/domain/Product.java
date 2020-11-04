@@ -23,6 +23,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(String productName) {
+        this.productName = productName;
+    }
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
