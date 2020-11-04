@@ -15,7 +15,7 @@ public class Order {
     private LocalDate orderDate;
     private Cart cart;
 
-    public Order(Long id, LocalDate orderDate, Cart cart) {
+        public Order(Long id, LocalDate orderDate, Cart cart) {
         this.id = id;
         this.orderDate = orderDate;
         this.cart = cart;

@@ -24,4 +24,6 @@ public interface UserDao extends CrudRepository<User, Long> {
     @Override
     void deleteById(Long id);
 
+    List<User> findByActive(Boolean isActive);
+
 }

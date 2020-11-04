@@ -23,10 +23,17 @@ public class Cart {
     public Cart() {
     }
 
+
     public Cart(User user, List<Product> productsAddedToCart) {
         this.user = user;
         this.productsAddedToCart = productsAddedToCart;
     }
+
+
+    public Cart(Long id) {
+        Id = id;
+    }
+
 
     @Id
     @NotNull
