@@ -6,15 +6,16 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface CartRepository extends CrudRepository<Cart, Long> {
+public interface CartDao extends CrudRepository<Cart, Long> {
+
     @Override
-    Cart save(Cart cart);
+    List<Cart> findAll();
 
     @Override
     Optional<Cart> findById(Long cartId);
 
     @Override
-    List<Cart> findAll();
+    Cart save(Cart cart);
 
     @Override
     void deleteById(Long cartId);

@@ -25,6 +25,10 @@ public class User {
     public User() {
     }
 
+    public User(String userName) {
+        this.userName = userName;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull

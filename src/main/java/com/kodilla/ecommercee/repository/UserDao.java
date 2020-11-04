@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<User, Long> {
 
     @Override
     List<User> findAll();

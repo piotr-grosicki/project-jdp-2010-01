@@ -53,4 +53,3 @@ public class Group {
         this.productList = productList;
     }
 }
-

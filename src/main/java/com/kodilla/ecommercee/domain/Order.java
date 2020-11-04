@@ -11,18 +11,23 @@ import java.time.LocalDate;
 public class Order {
 
     private Long id;
-    private Long cartId;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
     private Cart cart;
 
-    public Order(Long id, Long cartId, LocalDate orderDate) {
+    public Order(Long id, LocalDate orderDate, Cart cart) {
         this.id = id;
-        this.cartId = cartId;
+        this.orderDate = orderDate;
+        this.cart = cart;
+    }
+
+    public Order(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
     public Order() {
+
+
     }
 
     @Id
@@ -30,21 +35,33 @@ public class Order {
     @NotNull
     @Column(name = "ID", unique = true)
     public Long getId() {
+
         return id;
     }
 
+    @Column(name = "ORDER_DATE")
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {
+
         return cart;
     }
 
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public void setCart(Cart cart) {
+
         this.cart = cart;
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 }
