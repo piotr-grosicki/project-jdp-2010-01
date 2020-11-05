@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "CARTS")
 public class Cart {
-
     private Long id;
     private User user;
     private List<Product> productsAddedToCart = new ArrayList<>();
@@ -35,7 +34,6 @@ public class Cart {
         return id;
     }
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
@@ -47,7 +45,6 @@ public class Cart {
         return productsAddedToCart;
     }
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {

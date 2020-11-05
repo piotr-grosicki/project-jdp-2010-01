@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupRepository extends CrudRepository <Group, Long> {
+public interface GroupDao extends CrudRepository <Group, Long> {
     @Override
     List<Group> findAll();
 
