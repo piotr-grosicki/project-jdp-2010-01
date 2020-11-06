@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.UserRepository;
+import com.kodilla.ecommercee.repository.UserDao;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserDbService {
 
     @Autowired
-    private UserRepository repository;
+    private UserDao repository;
 
     public User banUser(long userId) {
         User user = getUserById(userId);
