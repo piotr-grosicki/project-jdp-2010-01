@@ -13,7 +13,7 @@ public class UserMapper {
                 userDto.getUserName(),
                 userDto.getPassword(),
                 userDto.getUserKey(),
-                userDto.isStatus()
+                userDto.isActive()
         );
     }
 

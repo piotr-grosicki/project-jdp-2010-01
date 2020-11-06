@@ -13,6 +13,6 @@ public class UserDto {
     private String userName;
     private String userKey;
     private String password;
-    private boolean status;
+    private boolean active;
 
 }
