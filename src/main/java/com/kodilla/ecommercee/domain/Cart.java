@@ -41,10 +41,10 @@ public class Cart {
     }
 
     @OneToOne(cascade =
-            {       CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.REFRESH,
-                    CascadeType.PERSIST
+            {           CascadeType.DETACH,
+                        CascadeType.MERGE,
+                        CascadeType.REFRESH,
+                        CascadeType.PERSIST
             },
             fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
@@ -53,10 +53,10 @@ public class Cart {
     }
 
     @ManyToMany(cascade =
-            {       CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.REFRESH,
-                    CascadeType.PERSIST
+            {            CascadeType.DETACH,
+                         CascadeType.MERGE,
+                         CascadeType.REFRESH,
+                         CascadeType.PERSIST
             })
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
