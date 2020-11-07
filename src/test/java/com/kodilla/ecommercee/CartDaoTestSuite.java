@@ -85,7 +85,7 @@ public class CartDaoTestSuite {
 
         //Then
         Assert.assertTrue(cartsBeforeDelete.size() > cartsAfterDelete.size());
-        Assert.assertTrue(usersBeforeDelete.size() > usersAfterDelete.size());
+        Assert.assertEquals(usersBeforeDelete.size(), usersAfterDelete.size());
     }
 
     @Test
