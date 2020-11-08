@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.order.dao;
 
 import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.repository.CartDao;
 import com.kodilla.ecommercee.repository.OrderDao;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +20,8 @@ import java.time.LocalDate;
 public class OrderDaoTestSuite {
     @Autowired
     OrderDao orderDao;
-
-
+    @Autowired
+    CartDao cartDao;
 
 
     @Test
@@ -59,24 +60,49 @@ public class OrderDaoTestSuite {
 
         //CleanUp
         orderDao.deleteById(id);
+    }
 
+    @Test
+    public void saveOrderWithCart() {
+        //Given
+        Cart cart3 = new Cart();
+        Order order3 = new Order(LocalDate.of(1995,1,1));
+        order3.setCart(cart3);
+        orderDao.save(order3);
+
+        //When
+        List<Order> orders = orderDao.findAll();
+        List<Cart> carts = cartDao.findAll();
+
+        //Then
+        Assert.assertNotEquals(0,orders.size());
+        Assert.assertNotEquals(0,carts.size());
+
+        //CleanUp
+        Long id = order3.getId();
+        orderDao.deleteById(id);
 
     }
 
 
     @Test
     public void testDeleteById() {
-        Cart cart3 = new Cart();
-        Order order3 = new Order(LocalDate.of(1990,1,1));
-        order3.setCart(cart3);
-        orderDao.save(order3);
+        Cart cart4 = new Cart();
+        Order order4 = new Order(LocalDate.of(1990,1,1));
+        order4.setCart(cart4);
+        orderDao.save(order4);
 
         //When
-        Long id = order3.getId();
+        List<Order> orders = orderDao.findAll();
+        List<Cart> carts = cartDao.findAll();
+        Long id = order4.getId();
         orderDao.deleteById(id);
+        List<Order> ordersAfterDeleteOrder = orderDao.findAll();
+        List<Cart> cartsAfterDeleteOrder = cartDao.findAll();
 
         //Then
-        Assert.assertFalse(orderDao.findById(id).isPresent());
+        Assert.assertTrue(orders.size() > ordersAfterDeleteOrder.size());
+        Assert.assertTrue(carts.size() > cartsAfterDeleteOrder.size());
     }
 
 }
