@@ -3,10 +3,12 @@ package com.kodilla.ecommercee.productDao;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
-
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.CartDao;
 import com.kodilla.ecommercee.repository.GroupDao;
 import com.kodilla.ecommercee.repository.ProductDao;
+
+import com.kodilla.ecommercee.repository.UserDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -26,6 +27,8 @@ public class ProductDaoTestSuite {
     GroupDao groupDao;
     @Autowired
     CartDao cartDao;
+    @Autowired
+    UserDao userDao;
 
     @Test
     public void saveProductOnDatabaseTestSuite() {
@@ -35,7 +38,7 @@ public class ProductDaoTestSuite {
         //When
         Optional<Product> resultProduct = productDao.findById(product.getId());
         //Then
-        Assert.assertNotEquals(0, resultProduct);
+        Assert.assertTrue(resultProduct.isPresent());
         //CleanUp
         try {
             productDao.deleteById(product.getId());
@@ -51,16 +54,19 @@ public class ProductDaoTestSuite {
         Product product = new Product("Test Product");
         product.setGroup(group);
         productDao.save(product);
+
         //When
-        List<Product> productList = productDao.findAll();
-        List<Group> groupList = groupDao.findAll();
+        Optional<Product> productResult = productDao.findById(product.getId());
+        Optional<Group> groupResult = groupDao.findById(group.getId());
 
         //Then
-        Assert.assertNotEquals(0, productList.size());
-        Assert.assertNotEquals(0, groupList.size());
+        Assert.assertTrue(productResult.isPresent());
+        Assert.assertTrue(groupResult.isPresent());
+
         //CleanUp
         try {
             productDao.deleteById(product.getId());
+            groupDao.deleteById(group.getId());
         } catch (Exception e) {
             //do nothing
         }
@@ -69,16 +75,26 @@ public class ProductDaoTestSuite {
     @Test
     public void saveProductOnDatabaseWithCartTestSuite() {
         //Given
-        //
-        Cart cart1 = new Cart(1L);
-        Cart cart2 = new Cart(2L);
-        Cart cart3 = new Cart(3L);
+        User user1 = new User ("Jan");
+        User user2 = new User ("Adam");
+        User user3 = new User ("Janina");
+
+        Cart cart1 = new Cart(user1);
+        Cart cart2 = new Cart(user2);
+        Cart cart3 = new Cart(user3);
+
         Product product1 = new Product("Test Product 1");
         Product product2 = new Product("Test Product 2");
         Product product3 = new Product("Test Product 3");
+
         cart1.getProductsAddedToCart().add(product1);
         cart2.getProductsAddedToCart().add(product2);
         cart3.getProductsAddedToCart().add(product3);
+
+        product1.getCarts().add(cart1);
+        product2.getCarts().add(cart2);
+        product3.getCarts().add(cart3);
+
         //When
         productDao.save(product1);
         long prduct1Id = product1.getId();
@@ -86,15 +102,31 @@ public class ProductDaoTestSuite {
         long prduct2Id = product1.getId();
         productDao.save(product3);
         long prduct3Id = product1.getId();
+        long cart1Id = cart1.getId();
+
+        Optional<Cart> cartResult= cartDao.findById(cart1Id);
+        Optional<Product> product1Result= productDao.findById(prduct1Id);
+        Optional<Product> product2Result= productDao.findById(prduct2Id);
+        Optional<Product> product3Result= productDao.findById(prduct3Id);
+
         //Then
-        Assert.assertNotEquals(0, prduct1Id);
-        Assert.assertNotEquals(0, prduct2Id);
-        Assert.assertNotEquals(0, prduct3Id);
+        Assert.assertTrue(cartResult.isPresent());
+        Assert.assertTrue(product1Result.isPresent());
+        Assert.assertTrue(product2Result.isPresent());
+        Assert.assertTrue(product3Result.isPresent());
+
         //CleanUp
         try {
             productDao.deleteById(product1.getId());
             productDao.deleteById(product2.getId());
             productDao.deleteById(product3.getId());
+            cartDao. deleteById(cart1.getId());
+            cartDao. deleteById(cart2.getId());
+            cartDao. deleteById(cart3.getId());
+            userDao.deleteById(user1.getId());
+            userDao.deleteById(user2.getId());
+            userDao.deleteById(user3.getId());
+
         } catch (Exception e) {
             //do nothing
         }
@@ -106,18 +138,29 @@ public class ProductDaoTestSuite {
         Product product1 = new Product("Test Product 1");
         Product product2 = new Product("Test Product 2");
         Product product3 = new Product("Test Product 3");
+
         productDao.save(product1);
         productDao.save(product2);
         productDao.save(product3);
+
         //When
-        Long id = product1.getId();
-        Optional<Product> resultProduct = productDao.findById(id);
+        Long id1 = product1.getId();
+        Long id2 = product2.getId();
+        Long id3 = product3.getId();
+        Optional<Product> resultProduct1 = productDao.findById(id1);
+        Optional<Product> resultProduct2 = productDao.findById(id2);
+        Optional<Product> resultProduct3 = productDao.findById(id3);
 
         //Then
-        Assert.assertTrue(resultProduct.isPresent());
+        Assert.assertTrue(resultProduct1.isPresent());
+        Assert.assertTrue(resultProduct2.isPresent());
+        Assert.assertTrue(resultProduct3.isPresent());
+
         //CleanUp
         try {
-            productDao.deleteById(id);
+            productDao.deleteById(id1);
+            productDao.deleteById(id2);
+            productDao.deleteById(id3);
         } catch (Exception e) {
             //do nothing
         }
@@ -126,22 +169,31 @@ public class ProductDaoTestSuite {
     @Test
     public void deleteProductByIdTestSuite() {
         //Given
-        Cart cart = new Cart(1l);
+        User user = new User("Adam");
+        Cart cart = new Cart(user);
         Group group = new Group("Test group");
         Product product1 = new Product("Test Product1");
+
         product1.setGroup(group);
         cart.getProductsAddedToCart().add(product1);
+        product1.getCarts().add(cart);
         productDao.save(product1);
 
-        //When
         Long id = product1.getId();
+        Long cartId = cart.getId();
+        Long groupId = group.getId();
+
+        //When
         productDao.deleteById(id);
+
         Optional<Product> resultProduct = productDao.findById(id);
+        Optional<Cart> resultCart = cartDao.findById(cartId);
+        Optional<Group> resultGroup = groupDao.findById(groupId);
 
         //Then
         Assert.assertFalse(resultProduct.isPresent());
-        Assert.assertNotNull(cartDao.findById(cart.getId()));
-        Assert.assertNotNull(groupDao.findById(group.getId()));
+        Assert.assertTrue(resultCart.isPresent());
+        Assert.assertTrue(resultGroup.isPresent());
 
         //CleanUp
         try {

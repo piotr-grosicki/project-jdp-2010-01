@@ -26,6 +26,10 @@ public class Cart {
         this.id = id;
     }
 
+    public Cart (User user){
+        this.user = user;
+    }
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +44,17 @@ public class Cart {
         return user;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
+    @ManyToMany(cascade =
+            {CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(
+            name = "JOIN_CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
     public List<Product> getProductsAddedToCart() {
         return productsAddedToCart;
     }
