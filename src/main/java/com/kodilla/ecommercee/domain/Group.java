@@ -14,6 +14,7 @@ public class Group {
     private String groupName;
     private List<Product> productList = new ArrayList<>();
 
+
     public Group(Long id, String groupName, List<Product> productList) {
     }
 
@@ -23,7 +24,6 @@ public class Group {
 
     public Group() {
     }
-
 
     @Id
     @NotNull
