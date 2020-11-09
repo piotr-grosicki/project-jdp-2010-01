@@ -9,8 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-@Transactional
+
 public interface CartDao extends CrudRepository <Cart, Long> {
     @Override
     List<Cart> findAll();
@@ -23,4 +22,5 @@ public interface CartDao extends CrudRepository <Cart, Long> {
 
     @Override
     void deleteById(Long id);
+
 }
