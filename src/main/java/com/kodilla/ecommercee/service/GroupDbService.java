@@ -24,7 +24,6 @@ public class GroupService {
         return groupDao.save(group);
     }
 
-    public void deleteGroup(Long groupId) {
-        groupDao.deleteById(groupId);
+    public void deleteGroup(Long groupId) { groupDao.deleteById(groupId);
     }
 }
