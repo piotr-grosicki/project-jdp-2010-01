@@ -14,10 +14,8 @@ public class Product {
     public Group group;
     private List<Cart> carts = new ArrayList<>();
 
-    public Product(Long id, String productName, Group group) {
-        this.id = id;
+    public Product(String productName) {
         this.productName = productName;
-        this.group = group;
     }
 
     public Product() {
@@ -40,13 +38,25 @@ public class Product {
         return productName;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
     @JoinColumn(name = "GROUP_OF_PRODUCT")
     public Group getGroup() {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
