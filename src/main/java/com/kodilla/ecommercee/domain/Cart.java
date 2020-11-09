@@ -43,14 +43,22 @@ public class Cart {
         return id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST,
+            },
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
     @ManyToMany(cascade =
-            {CascadeType.DETACH,
+            {
+                    CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
