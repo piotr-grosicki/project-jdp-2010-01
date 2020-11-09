@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "CARTS")
 public class Cart {
-
     private Long id;
     private User user;
     private List<Product> productsAddedToCart = new ArrayList<>();
@@ -27,7 +26,9 @@ public class Cart {
         this.id = id;
     }
 
-
+    public Cart (User user){
+        this.user = user;
+    }
 
     @Id
     @NotNull
@@ -43,11 +44,21 @@ public class Cart {
         return user;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
+    @ManyToMany(cascade =
+            {CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(
+            name = "JOIN_CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
     public List<Product> getProductsAddedToCart() {
         return productsAddedToCart;
     }
-    
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
