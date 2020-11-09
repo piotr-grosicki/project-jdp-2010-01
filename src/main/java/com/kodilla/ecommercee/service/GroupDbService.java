@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GroupService {
+public class GroupDbService {
     @Autowired
     private GroupDao groupDao;
 
@@ -24,6 +24,7 @@ public class GroupService {
         return groupDao.save(group);
     }
 
-    public void deleteGroup(Long groupId) { groupDao.deleteById(groupId);
+    public void deleteGroup(Long groupId) {
+        groupDao.deleteById(groupId);
     }
 }

@@ -14,12 +14,16 @@ public class Group {
     private String groupName;
     private List<Product> productList = new ArrayList<>();
 
+    public Group(Long id, String groupName, List<Product> productList) {
+    }
+
     public Group(String groupName) {
         this.groupName = groupName;
     }
 
     public Group() {
     }
+
 
     @Id
     @NotNull
