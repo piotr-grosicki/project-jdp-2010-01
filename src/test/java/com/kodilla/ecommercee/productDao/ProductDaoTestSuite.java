@@ -31,9 +31,9 @@ public class ProductDaoTestSuite {
     UserDao userDao;
 
     @Test
-    public void saveProductOnDatabaseTestSuite() {
+    public void saveProductOnDatabase() {
         //Given
-        Product product = new Product("Test Product");
+        Product product = new Product("Test Product 1");
         productDao.save((product));
         //When
         Optional<Product> resultProduct = productDao.findById(product.getId());
@@ -48,12 +48,11 @@ public class ProductDaoTestSuite {
     }
 
     @Test
-    public void saveProductOnDatabaseWithGroupTestSuite() {
+    public void saveProductOnDatabaseWithGroup() {
         //Given
         Group group = new Group("Test Product");
 
         Product product = new Product("Test Product");
-        group.getProductList().add(product);
         product.setGroup(group);
         productDao.save(product);
 
@@ -75,7 +74,7 @@ public class ProductDaoTestSuite {
     }
 
     @Test
-    public void saveProductOnDatabaseWithCartTestSuite() {
+    public void saveProductOnDatabaseWithCart() {
         //Given
         User user1 = new User ("Jan");
         User user2 = new User ("Adam");
@@ -88,10 +87,6 @@ public class ProductDaoTestSuite {
         Product product1 = new Product("Test Product 1");
         Product product2 = new Product("Test Product 2");
         Product product3 = new Product("Test Product 3");
-
-        cart1.getProductsAddedToCart().add(product1);
-        cart2.getProductsAddedToCart().add(product2);
-        cart3.getProductsAddedToCart().add(product3);
 
         product1.getCarts().add(cart1);
         product2.getCarts().add(cart2);
@@ -135,7 +130,7 @@ public class ProductDaoTestSuite {
     }
 
     @Test
-    public void findProductByIdTestSuite() {
+    public void findProductById() {
         //Given
         Product product1 = new Product("Test Product 1");
         Product product2 = new Product("Test Product 2");
@@ -149,14 +144,14 @@ public class ProductDaoTestSuite {
         Long id1 = product1.getId();
         Long id2 = product2.getId();
         Long id3 = product3.getId();
-        Optional<Product> resultProduct1 = productDao.findById(id1);
-        Optional<Product> resultProduct2 = productDao.findById(id2);
-        Optional<Product> resultProduct3 = productDao.findById(id3);
+        Optional<Product> productResult1 = productDao.findById(id1);
+        Optional<Product> productResult2 = productDao.findById(id2);
+        Optional<Product> productResult3 = productDao.findById(id3);
 
         //Then
-        Assert.assertTrue(resultProduct1.isPresent());
-        Assert.assertTrue(resultProduct2.isPresent());
-        Assert.assertTrue(resultProduct3.isPresent());
+        Assert.assertTrue(productResult1.isPresent());
+        Assert.assertTrue(productResult2.isPresent());
+        Assert.assertTrue(productResult3.isPresent());
 
         //CleanUp
         try {
@@ -169,7 +164,7 @@ public class ProductDaoTestSuite {
     }
 
     @Test
-    public void deleteProductByIdTestSuite() {
+    public void deleteProductById() {
         //Given
         User user = new User("Adam");
         Cart cart = new Cart(user);
