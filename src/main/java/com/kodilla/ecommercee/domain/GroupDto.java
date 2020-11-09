@@ -13,4 +13,8 @@ public class GroupDto {
     private Long id;
     private String groupName;
     private List<Product> productList;
+
+    public GroupDto(String groupName) {
+        this.groupName = groupName;
+    }
 }

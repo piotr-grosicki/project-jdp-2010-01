@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
-import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.domain.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,19 +10,17 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface UserDao extends CrudRepository<User, Long> {
+public interface ProductDao extends CrudRepository<Product, Long> {
     @Override
-    List<User> findAll();
+    List<Product> findAll();
 
     @Override
-    Optional<User>findById(Long id);
+    Optional<Product> findById(Long productId);
 
     @Override
-    User save(User user);
+    Product save(Product product);
 
     @Override
-    void deleteById(Long id);
-
-    List<User> findByActive(Boolean isActive);
+    void deleteById(Long productId);
 
 }
