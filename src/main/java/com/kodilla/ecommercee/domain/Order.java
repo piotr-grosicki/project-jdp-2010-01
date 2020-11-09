@@ -28,10 +28,6 @@ public class Order {
     public Order() {
     }
 
-    public Order(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
