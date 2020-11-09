@@ -21,6 +21,10 @@ public class Order {
         this.cart = cart;
     }
 
+    public Order(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public Order() {
     }
 
