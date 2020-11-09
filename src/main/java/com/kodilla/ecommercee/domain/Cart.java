@@ -26,10 +26,6 @@ public class Cart {
         this.id = id;
     }
 
-    public Cart(User user, List<Product> productsAddedToCart) {
-        this.user = user;
-        this.productsAddedToCart = productsAddedToCart;
-
     public Cart (User user){
         this.user = user;
     }
@@ -42,23 +38,17 @@ public class Cart {
         return id;
     }
 
-    @OneToOne(cascade =
-            {           CascadeType.DETACH,
-                        CascadeType.MERGE,
-                        CascadeType.REFRESH,
-                        CascadeType.PERSIST
-            },
-            fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
     @ManyToMany(cascade =
-            {            CascadeType.DETACH,
-                         CascadeType.MERGE,
-                         CascadeType.REFRESH,
-                         CascadeType.PERSIST
+            {CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
             })
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
