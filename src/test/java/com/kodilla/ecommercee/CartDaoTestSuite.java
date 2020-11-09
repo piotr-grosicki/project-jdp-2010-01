@@ -60,12 +60,15 @@ public class CartDaoTestSuite {
         //When
         cartDao.save(cart);
         Optional<Cart> result = cartDao.findById(cart.getId());
+        Optional<User> userResult = userDao.findById(user.getId());
 
         //Then
         Assert.assertTrue(result.isPresent());
+        Assert.assertTrue(userResult.isPresent());
 
         //CleanUp
         cartDao.deleteById(cart.getId());
+        userDao.deleteById(user.getId());
     }
 
     @Test
