@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "CARTS")
 public class Cart {
-
     private Long id;
     private User user;
     private List<Product> productsAddedToCart = new ArrayList<>();
@@ -30,6 +29,9 @@ public class Cart {
     public Cart(User user, List<Product> productsAddedToCart) {
         this.user = user;
         this.productsAddedToCart = productsAddedToCart;
+
+    public Cart (User user){
+        this.user = user;
     }
 
     @Id
