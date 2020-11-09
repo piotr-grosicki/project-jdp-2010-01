@@ -30,6 +30,11 @@ public class Cart {
         this.user = user;
     }
 
+    public Cart(User user, List<Product> productsAddedToCart) {
+        this.user = user;
+        this.productsAddedToCart = productsAddedToCart;
+    }
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
