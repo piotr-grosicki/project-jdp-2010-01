@@ -11,7 +11,6 @@ public class Cart {
     private Long id;
     private User user;
     private List<Product> productsAddedToCart = new ArrayList<>();
-    private Order order;
 
     public Cart(Long id, User user, List<Product> productsAddedToCart) {
         this.id = id;
@@ -26,7 +25,7 @@ public class Cart {
         this.id = id;
     }
 
-    public Cart (User user){
+    public Cart(User user) {
         this.user = user;
     }
 
@@ -59,12 +58,6 @@ public class Cart {
         return productsAddedToCart;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ORDER_ID")
-    public Order getOrder() {
-        return order;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,9 +68,5 @@ public class Cart {
 
     public void setProductsAddedToCart(List<Product> productsAddedToCart) {
         this.productsAddedToCart = productsAddedToCart;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }
