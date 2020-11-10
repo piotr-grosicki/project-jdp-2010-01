@@ -35,7 +35,6 @@ public class GroupDaoTestSuite {
 
         //Then
         Assert.assertTrue(readGroup.isPresent());
-        Assert.assertEquals("Chemia gospodarcza", group.getGroupName());
 
         //CleanUp
         groupDao.deleteById(group.getId());
@@ -57,13 +56,16 @@ public class GroupDaoTestSuite {
         groupDao.save(group);
         long groupId = group.getId();
         long product1Id = product1.getId();
+        long product2Id = product2.getId();
 
         Optional<Group> readGroup = groupDao.findById(groupId);
         Optional<Product> readProduct = productDao.findById(product1Id);
+        Optional<Product> readProduct2 = productDao.findById(product2Id);
 
         //Then
         Assert.assertTrue(readGroup.isPresent());
         Assert.assertTrue(readProduct.isPresent());
+        Assert.assertTrue(readProduct2.isPresent());
 
         //CleanUp
         groupDao.deleteById(groupId);
