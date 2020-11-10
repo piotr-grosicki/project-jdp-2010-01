@@ -34,7 +34,6 @@ public class CartDaoTestSuite {
 
     @Test
     public void testCartDaoFindAll() {
-
         //Given
         Cart cart = new Cart(new User("Piotr"), new ArrayList<>());
         cartDao.save(cart);
@@ -55,7 +54,6 @@ public class CartDaoTestSuite {
         //Given
         User user = new User("Piotr");
         Cart cart = new Cart(user, new ArrayList<>());
-        cart.setUser(user);
 
         //When
         cartDao.save(cart);
@@ -76,7 +74,6 @@ public class CartDaoTestSuite {
         //Given
         User user = new User("Piotr");
         Cart cart = new Cart(user, new ArrayList<>());
-        cart.setUser(user);
         cartDao.save(cart);
 
         //When
@@ -96,9 +93,6 @@ public class CartDaoTestSuite {
         //Given
         Cart cart = new Cart(new User("piotr"), new ArrayList<>());
         cartDao.save(cart);
-
-        User piotr = new User("Piotr");
-        cart.setUser(piotr);
 
         //When
         cartDao.deleteById(cart.getId());
