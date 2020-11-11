@@ -25,7 +25,7 @@ public class UserDaoTestSuite {
     CartDao cartDao;
 
     @Test
-    public void saveUserOnDatabaseTestSuite() {
+    public void testSaveUserOnDatabase() {
         //Given
         User user = new User("UserName", "1234", "plokijuh", true);
         userDao.save(user);
@@ -43,7 +43,7 @@ public class UserDaoTestSuite {
     }
 
     @Test
-    public void saveUserOnDatabaseWithCartTestSuite() {
+    public void testSaveUserOnDatabaseWithCart() {
         //Given
         User user2 = new User("UserName", "1234", "plokijuh", true);
         Cart cart2 = new Cart();
@@ -64,8 +64,10 @@ public class UserDaoTestSuite {
         }
     }
 
-    @Test
-    public void findUserByIdTestSuite() {
+
+   @Test
+    public void testFindUserById() {
+
         //Given
         User user1 = new User("UserName", "1", "plokijuh", true);
         User user2 = new User("UserName1", "2", "plokijuh", true);
@@ -86,7 +88,7 @@ public class UserDaoTestSuite {
     }
 
     @Test
-    public void deleteUserByIdTestSuite() {
+    public void testDeleteUserById() {
         //Given
         User user1 = new User("UserName", "1", "plokijuh", true);
         Cart cart = new Cart();
@@ -112,7 +114,8 @@ public class UserDaoTestSuite {
     }
 
     @Test
-    public void findUserByStatusTestSuite() {
+    public void testFindUserByStatus(){
+
         //Given
         User user = new User("UserName", "1", "plokijuh", true);
         User user2 = new User("UserName1", "2", "plokijuh", false);
