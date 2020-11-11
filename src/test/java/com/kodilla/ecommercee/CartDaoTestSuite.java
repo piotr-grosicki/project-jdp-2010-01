@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -99,41 +98,6 @@ public class CartDaoTestSuite {
 
         //Then
         Assert.assertFalse(cartDao.findById(cart.getId()).isPresent());
-    }
-
-    @Test
-    public void testCartDaoSaveWithOrder() {
-        //Given
-        Cart cart = new Cart(new User("piotr"), new ArrayList<>());
-        cart.setOrder(new Order(LocalDate.of(2020, 10, 27)));
-
-        //When
-        cartDao.save(cart);
-
-        //Then
-        Assert.assertNotEquals(0, cartDao.findById(cart.getId()));
-
-        //CleanUp
-        cartDao.deleteById(cart.getId());
-    }
-
-    @Test
-    public void testCartDaoDeleteByIdWithOrder() {
-        //Given
-        Cart cart = new Cart(new User("piotr"), new ArrayList<>());
-        cart.setOrder(new Order(LocalDate.of(2020, 10, 27)));
-        cartDao.save(cart);
-
-        //When
-        List<Cart> cartsBeforeDelete = cartDao.findAll();
-        List<Order> ordersBeforeDelete = orderDao.findAll();
-        cartDao.deleteById(cart.getId());
-        List<Cart> cartsAfterDelete = cartDao.findAll();
-        List<Order> ordersAfterDelete = orderDao.findAll();
-
-        //Then
-        Assert.assertTrue(cartsBeforeDelete.size() > cartsAfterDelete.size());
-        Assert.assertTrue(ordersBeforeDelete.size() > ordersAfterDelete.size());
     }
 
     @Test
