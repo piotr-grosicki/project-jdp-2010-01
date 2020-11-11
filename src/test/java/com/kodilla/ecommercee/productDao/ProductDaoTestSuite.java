@@ -50,8 +50,8 @@ public class ProductDaoTestSuite {
     @Test
     public void saveProductOnDatabaseWithGroup() {
         //Given
+      
         Group group = new Group("Test Product");
-
         Product product = new Product("Test Product");
         product.setGroup(group);
         productDao.save(product);
@@ -102,6 +102,7 @@ public class ProductDaoTestSuite {
         long cart1Id = cart1.getId();
 
         Optional<Cart> cartResult= cartDao.findById(cart1Id);
+
         Optional<Product> product1Result = productDao.findById(prduct1Id);
         Optional<Product> product2Result = productDao.findById(prduct2Id);
         Optional<Product> product3Result = productDao.findById(prduct3Id);
