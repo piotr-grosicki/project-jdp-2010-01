@@ -12,4 +12,10 @@ public class ProductDto {
     private Long id;
     private String productName;
     private Group group;
+
+    public ProductDto(String productName) {
+        this.productName = productName;
+    }
+
+
 }

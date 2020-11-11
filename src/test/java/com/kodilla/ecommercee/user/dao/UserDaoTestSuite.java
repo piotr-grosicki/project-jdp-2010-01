@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class UserDaoTestSuite {
     @Autowired
     UserDao userDao;
@@ -62,11 +64,13 @@ public class UserDaoTestSuite {
         }
     }
 
+
    @Test
     public void testFindUserById() {
+
         //Given
         User user1 = new User("UserName", "1", "plokijuh", true);
-        User user2 = new User( "UserName1", "2", "plokijuh", true);
+        User user2 = new User("UserName1", "2", "plokijuh", true);
         userDao.save(user1);
         userDao.save(user2);
 
@@ -77,10 +81,10 @@ public class UserDaoTestSuite {
         //Then
         Assert.assertTrue(findUser.isPresent());
 
-       //Clear
-       for (User input : userDao.findAll()) {
-           userDao.deleteById(input.getId());
-       }
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
     }
 
     @Test
@@ -111,6 +115,7 @@ public class UserDaoTestSuite {
 
     @Test
     public void testFindUserByStatus(){
+
         //Given
         User user = new User("UserName", "1", "plokijuh", true);
         User user2 = new User("UserName1", "2", "plokijuh", false);
@@ -122,7 +127,7 @@ public class UserDaoTestSuite {
         List<User> users1 = userDao.findByActive(true);
 
         //Then
-        Assert.assertNotEquals(0,users1.size());
+        Assert.assertNotEquals(0, users1.size());
 
         //Clear
         for (User input : userDao.findAll()) {

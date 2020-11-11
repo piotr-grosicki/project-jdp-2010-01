@@ -6,17 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity(name = "GROUP_ENTITY")
+@Entity
+@Table(name = "GROUP_ENTITY")
 public class Group {
 
     private Long id;
     private String groupName;
     private List<Product> productList = new ArrayList<>();
 
-    public Group(@NotNull Long id, String groupName, List<Product> productList) {
-        this.id = id;
+    public Group(String groupName) {
         this.groupName = groupName;
-        this.productList = productList;
     }
 
     public Group() {
@@ -30,23 +29,23 @@ public class Group {
         return id;
     }
 
-    @Column(name = "GROUP_NAME")
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
     @Column(name = "PRODUCT_LIST")
     @OneToMany(targetEntity = Product.class, mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Product> getProductList() {
         return productList;
     }
 
+    @Column(name = "GROUP_NAME")
+    public String getGroupName() {
+        return groupName;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void setProductList(List<Product> productList) {
