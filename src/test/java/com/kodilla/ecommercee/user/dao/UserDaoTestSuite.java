@@ -46,7 +46,7 @@ public class UserDaoTestSuite {
     public void saveUserOnDatabaseWithCartTestSuite() {
         //Given
         User user2 = new User("UserName", "1234", "plokijuh", true);
-        Cart cart2 = new Cart();
+        Cart cart2 = new Cart(user2);
         user2.setCart(cart2);
         userDao.save(user2);
 
@@ -89,7 +89,7 @@ public class UserDaoTestSuite {
     public void deleteUserByIdTestSuite() {
         //Given
         User user1 = new User("UserName", "1", "plokijuh", true);
-        Cart cart = new Cart();
+        Cart cart = new Cart(new User("user"));
         user1.setCart(cart);
         userDao.save(user1);
 

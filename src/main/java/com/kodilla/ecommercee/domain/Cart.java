@@ -38,6 +38,7 @@ public class Cart {
         return id;
     }
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
