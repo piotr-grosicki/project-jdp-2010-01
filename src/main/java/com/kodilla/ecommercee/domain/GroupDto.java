@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class GroupDto {
     private Long id;
@@ -16,5 +15,11 @@ public class GroupDto {
 
     public GroupDto(String groupName) {
         this.groupName = groupName;
+    }
+  
+    public GroupDto(Long id, String groupName, List<Product> productList) {
+        this.id = id;
+        this.groupName = groupName;
+        this.productList = productList;
     }
 }
