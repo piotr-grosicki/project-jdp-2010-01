@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -13,6 +14,7 @@ public class User {
     private String password;
     private boolean active;
     private Cart cart;
+    private List<Order> orderList;
 
     public User(Long id, String userName, String userKey, String password, boolean active) {
         this.id = id;
@@ -70,6 +72,12 @@ public class User {
         return cart;
     }
 
+    @Column(name = "ORDER_LIST")
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -94,4 +102,7 @@ public class User {
         this.cart = cart;
     }
 
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 }
