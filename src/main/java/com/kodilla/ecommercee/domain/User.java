@@ -72,7 +72,6 @@ public class User {
         return cart;
     }
 
-    @Column(name = "ORDER_LIST")
     @OneToMany(targetEntity = Order.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Order> getOrderList() {
         return orderList;
