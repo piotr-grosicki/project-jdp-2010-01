@@ -29,6 +29,11 @@ public class Cart {
         this.user = user;
     }
 
+    public Cart(User user, List<Product> productsAddedToCart) {
+        this.user = user;
+        this.productsAddedToCart = productsAddedToCart;
+    }
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,14 +43,22 @@ public class Cart {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST,
+            },
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
     @ManyToMany(cascade =
-            {CascadeType.DETACH,
+            {
+                    CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
@@ -70,4 +83,5 @@ public class Cart {
     public void setProductsAddedToCart(List<Product> productsAddedToCart) {
         this.productsAddedToCart = productsAddedToCart;
     }
+
 }
