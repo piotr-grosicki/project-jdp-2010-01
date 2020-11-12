@@ -50,7 +50,7 @@ public class Order {
         return cart;
     }
     @ManyToOne
-    @JoinColumn(name = "USER_OF_ORDER")
+    @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
