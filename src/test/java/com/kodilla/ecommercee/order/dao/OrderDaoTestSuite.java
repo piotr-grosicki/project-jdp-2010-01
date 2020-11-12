@@ -45,7 +45,7 @@ public class OrderDaoTestSuite {
     @Test
     public void testFindByIdOrderWithCart() {
         //Given
-        Cart cart2 = new Cart();
+        Cart cart2 = new Cart(new User("user1"));
         Order order2 = new Order(LocalDate.of(1970, 5, 16));
         order2.setCart(cart2);
         orderDao.save(order2);
@@ -65,7 +65,7 @@ public class OrderDaoTestSuite {
     @Test
     public void saveOrderWithCart() {
         //Given
-        Cart cart3 = new Cart();
+        Cart cart3 = new Cart(new User("user1"));
         Order order3 = new Order(LocalDate.of(1995,1,1));
         order3.setCart(cart3);
         orderDao.save(order3);
@@ -87,7 +87,7 @@ public class OrderDaoTestSuite {
 
     @Test
     public void testDeleteById() {
-        Cart cart4 = new Cart();
+        Cart cart4 = new Cart(new User("user1"));
         Order order4 = new Order(LocalDate.of(1990,1,1));
         order4.setCart(cart4);
         orderDao.save(order4);
