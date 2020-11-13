@@ -14,6 +14,7 @@ public class Product {
     public Group group;
     private List<Cart> carts = new ArrayList<>();
 
+
     public Product(String productName) {
         this.productName = productName;
     }
