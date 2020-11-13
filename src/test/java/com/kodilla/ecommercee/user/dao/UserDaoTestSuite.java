@@ -120,11 +120,12 @@ public class UserDaoTestSuite {
     @Test
     public void testDeleteUserById() {
         //Given
+        Cart cart = new Cart(new User());
         User user = new User("UserName", "1", "plokijuh", true);
-        Cart cart = new Cart(new User("user"));
         Order order = new Order(LocalDate.of(2000,1,1));
         List<Order>ordersList = new ArrayList<>();
         ordersList.add(order);
+        order.setUser(user);
         user.setOrderList(ordersList);
         user.setCart(cart);
         userDao.save(user);
