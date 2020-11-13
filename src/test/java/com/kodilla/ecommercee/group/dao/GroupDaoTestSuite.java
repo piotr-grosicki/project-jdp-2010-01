@@ -79,15 +79,22 @@ public class GroupDaoTestSuite {
         Group group = new Group();
         group.setGroupName("Chemia gospodarcza");
 
+        Product product1 = new Product("domestos");
+
+        group.getProductList().add(product1);
+
         groupDao.save(group);
         long id = group.getId();
+        long productId = product1.getId();
 
         //When
         groupDao.deleteById(id);
         Optional<Group> readGroup = groupDao.findById(id);
+        Optional<Product> readProduct = productDao.findById(productId);
 
         //Then
         Assert.assertFalse(readGroup.isPresent());
+        Assert.assertTrue(readProduct.isPresent());
     }
 
 }
