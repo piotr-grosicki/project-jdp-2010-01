@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -15,6 +17,7 @@ public class Order {
     private LocalDate orderDate;
     private Cart cart;
     public User user;
+    private List<Product> productList = new ArrayList<>();
 
     public Order(Long id, LocalDate orderDate, Cart cart) {
         this.id = id;
@@ -53,6 +56,26 @@ public class Order {
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
+    }
+
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(
+            name = "JOIN_ORDER_PRODUCT",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     public void setOrderDate(LocalDate orderDate) {
