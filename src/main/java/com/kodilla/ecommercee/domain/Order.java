@@ -14,6 +14,7 @@ public class Order {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
     private Cart cart;
+    public User user;
 
     public Order(Long id, LocalDate orderDate, Cart cart) {
         this.id = id;
@@ -48,6 +49,11 @@ public class Order {
 
         return cart;
     }
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+    }
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
@@ -61,5 +67,9 @@ public class Order {
     public void setId(Long id) {
 
         this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
