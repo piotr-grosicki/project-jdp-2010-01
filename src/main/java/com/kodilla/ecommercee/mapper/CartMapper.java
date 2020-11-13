@@ -9,22 +9,27 @@ import java.util.stream.Collectors;
 
 @Component
 public class CartMapper {
+
+    ProductMapper productMapper;
+    UserMapper userMapper;
+
     public Cart mapToCart(CartDto cartDto) {
         return new Cart(
                 cartDto.getId(),
-                cartDto.getUserDto(),
-                cartDto.getProductsInCart());
+                userMapper.mapUserDtoToUser(cartDto.getUserDto()),
+                productMapper.mapToProductList(cartDto.getProductsInCart()));
     }
-    public CartDto maptoCartDto(Cart cart){
+
+    public CartDto mapToCartDto(Cart cart) {
         return new CartDto(
                 cart.getId(),
-                cart.getUser(),
-                cart.getProductsAddedToCart());
+                userMapper.mapUserToUserDto(cart.getUser()),
+                productMapper.mapToProductDtoList(cart.getProductsAddedToCart()));
     }
 
     public List<CartDto> mapToCartDtoList(List<Cart> cartList) {
         return cartList.stream()
-                .map(c -> new CartDto(c.getId(), c.getUser(), c.getProductsAddedToCart()))
+                .map(c -> new CartDto(c.getId(), userMapper.mapUserToUserDto(c.getUser()), productMapper.mapToProductDtoList(c.getProductsAddedToCart())))
                 .collect(Collectors.toList());
     }
 }

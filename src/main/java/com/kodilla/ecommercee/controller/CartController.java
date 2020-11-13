@@ -22,8 +22,8 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getCart")
-    public CartDto getCart(@RequestParam Long cartId) {
-        return cartMapper.maptoCartDto(cartDbService.getCartById(cartId));
+    public CartDto getCart(@RequestParam Long cartId) throws CartNotFoundException{
+        return cartMapper.mapToCartDto(cartDbService.getCartById(cartId));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createCart")
@@ -33,7 +33,7 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateCart")
     public CartDto updateCart(@RequestBody CartDto cartDto) {
-        return cartMapper.maptoCartDto(cartDbService.saveCart(cartMapper.mapToCart(cartDto)));
+        return cartMapper.mapToCartDto(cartDbService.saveCart(cartMapper.mapToCart(cartDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
