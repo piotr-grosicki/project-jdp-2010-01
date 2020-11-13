@@ -1,14 +1,8 @@
 package com.kodilla.ecommercee.productDao;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Group;
-import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.CartDao;
-import com.kodilla.ecommercee.repository.GroupDao;
-import com.kodilla.ecommercee.repository.ProductDao;
+import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.repository.*;
 
-import com.kodilla.ecommercee.repository.UserDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +23,8 @@ public class ProductDaoTestSuite {
     CartDao cartDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    OrderDao orderDao;
 
     @Test
     public void saveProductOnDatabase() {
@@ -42,6 +38,50 @@ public class ProductDaoTestSuite {
         //CleanUp
         try {
             productDao.deleteById(product.getId());
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    @Test
+    public void testCheckingRelationshipBetweenProductAndOrder() {
+        //given
+        Product product1 = new Product("Product1");
+        Product product2 = new Product("Product1");
+
+        Order order = new Order();
+
+        order.getProductList().add(product1);
+        order.getProductList().add(product2);
+        product1.getOrders().add(order);
+        product2.getOrders().add(order);
+
+        //When
+        productDao.save(product1);
+        productDao.save(product2);
+
+        int productListSize = productDao.findAll().size();
+        int orderListSize = orderDao.findAll().size();
+
+        Long product1Id = product1.getId();
+        productDao.deleteById(product1Id);
+
+        int productListAfterDelete = productDao.findAll().size();
+
+        //Then
+        try {
+            Assert.assertEquals(2, productListSize);
+            Assert.assertEquals(1, orderListSize);
+            Assert.assertEquals(1, productListAfterDelete);
+        } catch (AssertionError e) {
+            System.out.println("Something went wrong :)");
+        }
+
+        //Clear up
+        try {
+            productDao.deleteById(product1.getId());
+            productDao.deleteById(product2.getId());
+            orderDao.deleteById(order.getId());
         } catch (Exception e) {
             //do nothing
         }
