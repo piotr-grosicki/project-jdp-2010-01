@@ -42,6 +42,7 @@ public class Cart {
         return id;
     }
 
+    @NotNull
     @OneToOne(cascade =
             {
                     CascadeType.DETACH,
