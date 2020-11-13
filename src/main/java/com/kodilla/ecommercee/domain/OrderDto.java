@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -18,6 +19,6 @@ public class OrderDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
     private CartDto cartDto;
-
+    private List<ProductDto> productDtoList;
 
 }
