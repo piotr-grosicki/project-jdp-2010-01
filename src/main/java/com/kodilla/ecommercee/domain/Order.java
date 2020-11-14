@@ -15,14 +15,20 @@ public class Order {
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
-    private Cart cart;
     public User user;
     private List<Product> productList = new ArrayList<>();
 
-    public Order(Long id, LocalDate orderDate, Cart cart) {
+    public Order(Long id, LocalDate orderDate, User user, List<Product> productList) {
         this.id = id;
         this.orderDate = orderDate;
-        this.cart = cart;
+        this.user = user;
+        this.productList = productList;
+    }
+
+    public Order(LocalDate orderDate, User user, List<Product> productList) {
+        this.orderDate = orderDate;
+        this.user = user;
+        this.productList = productList;
     }
 
     public Order(LocalDate orderDate) {
@@ -46,13 +52,13 @@ public class Order {
         return orderDate;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART_ID")
-    public Cart getCart() {
 
-        return cart;
-    }
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
@@ -80,11 +86,6 @@ public class Order {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public void setCart(Cart cart) {
-
-        this.cart = cart;
     }
 
     public void setId(Long id) {

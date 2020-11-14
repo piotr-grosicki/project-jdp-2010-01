@@ -3,6 +3,8 @@ package com.kodilla.ecommercee.order.dao;
 import com.kodilla.ecommercee.domain.*;
 import com.kodilla.ecommercee.repository.CartDao;
 import com.kodilla.ecommercee.repository.OrderDao;
+import com.kodilla.ecommercee.repository.ProductDao;
+import com.kodilla.ecommercee.repository.UserDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
@@ -21,16 +24,18 @@ public class OrderDaoTestSuite {
     @Autowired
     OrderDao orderDao;
     @Autowired
-    CartDao cartDao;
+    UserDao userDao;
+    @Autowired
+    ProductDao productDao;
 
 
     @Test
-    public void testOrderDaoFindAll() {
+    public void testFindAll() {
 
         //Given
-        Order order1 = new Order(LocalDate.of(2000,1,1));
-        orderDao.save(order1);
-        Long id = order1.getId();
+        User user = new User("Johny");
+        Order order = new Order(LocalDate.of(2000,1,1), user, new ArrayList<>());
+        orderDao.save(order);
 
         //When
         List<Order> ordersList = orderDao.findAll();
@@ -39,70 +44,148 @@ public class OrderDaoTestSuite {
         Assert.assertNotEquals(0,ordersList.size());
 
         //CleanUp
-        orderDao.deleteById(id);
+        orderDao.deleteById(order.getId());
     }
 
     @Test
-    public void testFindByIdOrderWithCart() {
+    public void testSaveWithUser() {
+
         //Given
-        Cart cart2 = new Cart(new User("user1"));
-        Order order2 = new Order(LocalDate.of(1970, 5, 16));
-        order2.setCart(cart2);
+        User user = new User("Johnny");
+        Order order = new Order(LocalDate.of(1990,1,1), user, new ArrayList<>());
+        orderDao.save(order);
+
+        //When
+        Optional<Order> resultOrder = orderDao.findById(order.getId());
+        Optional<User> resultUser = userDao.findById(user.getId());
+
+        //Then
+        Assert.assertTrue(resultOrder.isPresent());
+        Assert.assertTrue(resultUser.isPresent());
+
+        //CleanUp
+        orderDao.deleteById(order.getId());
+        userDao.deleteById(user.getId());
+    }
+
+    @Test
+    public void testSaveWithProduct() {
+        //Given
+        User user1 = new User("Johnny1");
+        User user2 = new User("Johnny2");
+        User user3 = new User("Johnny3");
+
+        Order order1 = new Order(LocalDate.of(1990,1,1),user1, new ArrayList<>());
+        Order order2 = new Order(LocalDate.of(1980,1,1),user2, new ArrayList<>());
+        Order order3 = new Order(LocalDate.of(1970,1,1),user3, new ArrayList<>());
+
+        Product product1 = new Product("Product1");
+        Product product2 = new Product("Product2");
+        Product product3 = new Product("Product3");
+
+        order1.getProductList().add(product1);
+        order2.getProductList().add(product1);
+        order2.getProductList().add(product3);
+        order2.getProductList().add(product1);
+        order3.getProductList().add(product2);
+        order3.getProductList().add(product3);
+
+        product1.getOrders().add(order1);
+        product1.getOrders().add(order2);
+        product1.getOrders().add(order3);
+        product2.getOrders().add(order3);
+        product3.getOrders().add(order2);
+        product3.getOrders().add(order3);
+
+        //When
+        orderDao.save(order1);
+        long order1Id = order1.getId();
         orderDao.save(order2);
-
-
-        //When
-        Long id = order2.getId();
-        Optional<Order> result = orderDao.findById(id);
-
-        //Then
-        Assert.assertTrue(result.isPresent());
-
-        //CleanUp
-        orderDao.deleteById(id);
-    }
-
-    @Test
-    public void saveOrderWithCart() {
-        //Given
-        Cart cart3 = new Cart(new User("user1"));
-        Order order3 = new Order(LocalDate.of(1995,1,1));
-        order3.setCart(cart3);
+        long order2Id = order2.getId();
         orderDao.save(order3);
-
-        //When
-        List<Order> orders = orderDao.findAll();
-        List<Cart> carts = cartDao.findAll();
+        long order3Id = order3.getId();
 
         //Then
-        Assert.assertNotEquals(0,orders.size());
-        Assert.assertNotEquals(0,carts.size());
+
+        Assert.assertNotEquals(0,order1Id);
+        Assert.assertNotEquals(0,order2Id);
+        Assert.assertNotEquals(0,order3Id);
 
         //CleanUp
-        Long id = order3.getId();
-        orderDao.deleteById(id);
-
+        orderDao.deleteById(order1Id);
+        orderDao.deleteById(order2Id);
+        orderDao.deleteById(order3Id);
     }
-
 
     @Test
-    public void testDeleteById() {
-        Cart cart4 = new Cart(new User("user1"));
-        Order order4 = new Order(LocalDate.of(1990,1,1));
-        order4.setCart(cart4);
-        orderDao.save(order4);
+    public void deleteById() {
+
+        //Given
+        User user = new User("Johnny");
+        Order order = new Order(LocalDate.of(2000,1,1), user, new ArrayList<>());
+        orderDao.save(order);
 
         //When
-        List<Order> orders = orderDao.findAll();
-        List<Cart> carts = cartDao.findAll();
-        Long id = order4.getId();
-        orderDao.deleteById(id);
-        List<Order> ordersAfterDeleteOrder = orderDao.findAll();
-        List<Cart> cartsAfterDeleteOrder = cartDao.findAll();
+        List<Order> ordersBeforeDelete = orderDao.findAll();
+        List<User> usersBeforeDelete = userDao.findAll();
+        orderDao.deleteById(order.getId());
+        List<Order> ordersAfterDelete = orderDao.findAll();
+        List<User> usersAfterDelete = userDao.findAll();
 
         //Then
-        Assert.assertTrue(orders.size() > ordersAfterDeleteOrder.size());
-        Assert.assertTrue(carts.size() > cartsAfterDeleteOrder.size());
+        Assert.assertTrue(ordersBeforeDelete.size() > ordersAfterDelete.size());
+        Assert.assertEquals(usersBeforeDelete.size(),usersAfterDelete.size());
     }
 
+    @Test
+    public void testDeleteByIdOrderWithProduct() {
+        //Given
+        User user1 = new User("Johnny1");
+        User user2 = new User("Johnny2");
+        User user3 = new User("Johnny3");
+
+        Order order1 = new Order(LocalDate.of(1990,1,1),user1, new ArrayList<>());
+        Order order2 = new Order(LocalDate.of(1980,1,1),user2, new ArrayList<>());
+        Order order3 = new Order(LocalDate.of(1970,1,1),user3, new ArrayList<>());
+
+        Product product1 = new Product("Product1");
+        Product product2 = new Product("Product2");
+        Product product3 = new Product("Product3");
+
+        order1.getProductList().add(product1);
+        order2.getProductList().add(product1);
+        order2.getProductList().add(product3);
+        order2.getProductList().add(product1);
+        order3.getProductList().add(product2);
+        order3.getProductList().add(product3);
+
+        product1.getOrders().add(order1);
+        product1.getOrders().add(order2);
+        product1.getOrders().add(order3);
+        product2.getOrders().add(order3);
+        product3.getOrders().add(order2);
+        product3.getOrders().add(order3);
+
+        orderDao.save(order1);
+        long order1Id = order1.getId();
+        orderDao.save(order2);
+        long order2Id = order2.getId();
+        orderDao.save(order3);
+        long order3Id = order3.getId();
+
+        //When
+
+        List<Order> ordersBeforeDelete = orderDao.findAll();
+        List<Product> productsBeforeDelete = productDao.findAll();
+        orderDao.deleteById(order1Id);
+        orderDao.deleteById(order2Id);
+        List<Order> ordersAfterDelete = orderDao.findAll();
+        List<Product> productsAfterDelete = productDao.findAll();
+
+        Assert.assertTrue(ordersBeforeDelete.size() > ordersAfterDelete.size());
+        Assert.assertEquals(productsBeforeDelete.size(),productsAfterDelete.size());
+
+        //CleanUp
+        orderDao.deleteById(order3Id);
+    }
 }
