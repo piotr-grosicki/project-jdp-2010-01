@@ -82,6 +82,7 @@ public class GroupDaoTestSuite {
         Product product1 = new Product("domestos");
 
         group.getProductList().add(product1);
+        product1.setGroup(group);
 
         groupDao.save(group);
         long id = group.getId();
@@ -94,7 +95,7 @@ public class GroupDaoTestSuite {
 
         //Then
         Assert.assertFalse(readGroup.isPresent());
-        Assert.assertTrue(readProduct.isPresent());
+        Assert.assertFalse(readProduct.isPresent());
     }
 
 }
