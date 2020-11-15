@@ -25,6 +25,12 @@ public class Order {
         this.productList = productList;
     }
 
+    public Order(LocalDate orderDate, User user, List<Product> productList) {
+        this.orderDate = orderDate;
+        this.user = user;
+        this.productList = productList;
+    }
+
     public Order(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
@@ -46,7 +52,12 @@ public class Order {
         return orderDate;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade ={
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
