@@ -16,14 +16,14 @@ public class OrderMapper {
     @Autowired
     UserMapper userMapper;
 
-    public Order mapToOrder(OrderDto orderDto) {
+    public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
                 orderDto.getOrderDate(),
                 userMapper.mapUserDtoToUser(orderDto.getUserDto()),
                 productMapper.mapToProductList(orderDto.getProductDtoList()));
     }
-    public OrderDto mapToOrderDto(Order order){
+    public OrderDto mapToOrderDto(final Order order){
         return new OrderDto(
                 order.getId(),
                 order.getOrderDate(),
@@ -31,7 +31,7 @@ public class OrderMapper {
                 productMapper.mapToProductDtoList(order.getProductList()));
     }
 
-    public List<OrderDto> mapToOrderDtoList(List<Order> ordersList) {
+    public List<OrderDto> mapToOrderDtoList(final List<Order> ordersList) {
         return ordersList.stream()
                 .map(o -> new OrderDto(
                         o.getId(),
