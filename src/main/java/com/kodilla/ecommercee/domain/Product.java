@@ -16,11 +16,18 @@ public class Product {
     private List<Order> orders = new ArrayList<>();
 
 
-    public Product(String productName) {
-        this.productName = productName;
+    public Product() {
     }
 
-    public Product() {
+    public Product(Long id, String productName, Group group, List<Cart> carts) {
+        this.id = id;
+        this.productName = productName;
+        this.group = group;
+        this.carts = carts;
+    }
+
+    public Product(String productName) {
+        this.productName = productName;
     }
 
     @Id

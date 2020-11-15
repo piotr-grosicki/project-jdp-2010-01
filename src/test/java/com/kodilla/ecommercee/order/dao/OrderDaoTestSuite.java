@@ -47,6 +47,7 @@ public class OrderDaoTestSuite {
         orderDao.deleteById(order.getId());
     }
 
+<<<<<<< HEAD
     @Test
     public void testSaveWithUser() {
 
@@ -188,4 +189,6 @@ public class OrderDaoTestSuite {
         //CleanUp
         orderDao.deleteById(order3Id);
     }
+=======
+>>>>>>> main
 }

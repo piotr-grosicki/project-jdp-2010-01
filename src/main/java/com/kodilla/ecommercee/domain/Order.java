@@ -23,12 +23,15 @@ public class Order {
         this.orderDate = orderDate;
         this.user = user;
         this.productList = productList;
+<<<<<<< HEAD
     }
 
     public Order(LocalDate orderDate, User user, List<Product> productList) {
         this.orderDate = orderDate;
         this.user = user;
         this.productList = productList;
+=======
+>>>>>>> main
     }
 
     public Order(LocalDate orderDate) {
@@ -52,6 +55,7 @@ public class Order {
         return orderDate;
     }
 
+<<<<<<< HEAD
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,
@@ -59,6 +63,9 @@ public class Order {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
+=======
+    @ManyToOne
+>>>>>>> main
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
@@ -77,14 +84,20 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
     )
     public List<Product> getProductList() {
+
         return productList;
     }
 
     public void setProductList(List<Product> productList) {
+
         this.productList = productList;
     }
 
     public void setOrderDate(LocalDate orderDate) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
         this.orderDate = orderDate;
     }
 
@@ -94,6 +107,7 @@ public class Order {
     }
 
     public void setUser(User user) {
+
         this.user = user;
     }
 }
