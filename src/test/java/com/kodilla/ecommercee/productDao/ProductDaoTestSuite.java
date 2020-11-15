@@ -68,11 +68,17 @@ public class ProductDaoTestSuite {
 
         int productListAfterDelete = productDao.findAll().size();
 
+        Long orderId = order.getId();
+        orderDao.deleteById(orderId);
+        int orderListAfterDelete = orderDao.findAll().size();
+
         //Then
         try {
             Assert.assertEquals(2, productListSize);
             Assert.assertEquals(1, orderListSize);
             Assert.assertEquals(1, productListAfterDelete);
+            Assert.assertEquals(0, orderListAfterDelete);
+
         } catch (AssertionError e) {
             System.out.println("Something went wrong :)");
         }
