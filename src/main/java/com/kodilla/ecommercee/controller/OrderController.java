@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.domain.CartDto;
 import com.kodilla.ecommercee.domain.OrderDto;
 ;
+import com.kodilla.ecommercee.domain.UserDto;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -28,13 +29,13 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId) {
 
-        return new OrderDto(1L,LocalDate.of(2020,1,1),new CartDto(), new ArrayList<>());
+        return new OrderDto(1L,LocalDate.of(2020,1,1),new UserDto(), new ArrayList<>());
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
 
-        return new OrderDto(1L,LocalDate.of(2019,1,1),new CartDto(), new ArrayList<>());
+        return new OrderDto(1L,LocalDate.of(2019,1,1),new UserDto(), new ArrayList<>());
     }
 
 

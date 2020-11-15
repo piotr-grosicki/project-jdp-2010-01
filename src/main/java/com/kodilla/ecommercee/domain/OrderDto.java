@@ -18,7 +18,7 @@ public class OrderDto {
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
-    private CartDto cartDto;
+    private UserDto userDto;
     private List<ProductDto> productDtoList;
 
 }
