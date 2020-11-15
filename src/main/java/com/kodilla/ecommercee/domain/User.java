@@ -34,6 +34,7 @@ public class User {
     public User() {
     }
 
+
     public User(String userName) {
         this.userName = userName;
     }

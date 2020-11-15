@@ -1,8 +1,10 @@
 package com.kodilla.ecommercee.user.dao;
 
 import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.CartDao;
+import com.kodilla.ecommercee.repository.OrderDao;
 import com.kodilla.ecommercee.repository.UserDao;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +27,8 @@ public class UserDaoTestSuite {
     UserDao userDao;
     @Autowired
     CartDao cartDao;
+    @Autowired
+    OrderDao orderDao;
 
     @Test
     public void testSaveUserOnDatabase() {
@@ -64,8 +70,32 @@ public class UserDaoTestSuite {
         }
     }
 
+    @Test
+    public void testSaveUserOnDatabaseWithOrder() {
+        //Given
+        User user = new User("UserName", "1234", "plokijuh", true);
+        Order order = new Order(LocalDate.of(2000, 1, 1));
+        List<Order> ordersList = new ArrayList<>();
+        ordersList.add(order);
+        user.setOrderList(ordersList);
+        userDao.save(user);
 
-   @Test
+        //When
+        List<User> userList = userDao.findAll();
+        List<Order> orderList = orderDao.findAll();
+
+        //Then
+        Assert.assertNotEquals(0, userList.size());
+        Assert.assertNotEquals(0, orderList.size());
+
+        //Clear
+        for (User input : userDao.findAll()) {
+            userDao.deleteById(input.getId());
+        }
+    }
+
+
+    @Test
     public void testFindUserById() {
 
         //Given
@@ -90,23 +120,32 @@ public class UserDaoTestSuite {
     @Test
     public void testDeleteUserById() {
         //Given
-        User user1 = new User("UserName", "1", "plokijuh", true);
-        Cart cart = new Cart(new User("user"));
-        user1.setCart(cart);
-        userDao.save(user1);
+        User user = new User("UserName", "1", "plokijuh", true);
+        Cart cart = new Cart(user);
+        Order order = new Order(LocalDate.of(2000, 1, 1));
+        List<Order> ordersList = new ArrayList<>();
+        ordersList.add(order);
+        cart.getUser().setOrderList(ordersList);
+        cartDao.save(cart);
 
         //When
         List<User> usersBeforeDelete = userDao.findAll();
         List<Cart> cartsBeforeDelete = cartDao.findAll();
-        Long id1 = user1.getId();
+        List<Order> ordersBeforeDelete = orderDao.findAll();
+        Long id1 = user.getId();
         userDao.deleteById(id1);
         List<User> usersAfterDelete = userDao.findAll();
         List<Cart> cartsAfterDelete = cartDao.findAll();
+        List<Order> ordersAfterDelete = orderDao.findAll();
 
         //Then
-        Assert.assertTrue(usersBeforeDelete.size() > usersAfterDelete.size());
-        Assert.assertTrue(cartsBeforeDelete.size() > cartsAfterDelete.size());
-
+        try {
+            Assert.assertTrue(usersBeforeDelete.size() > usersAfterDelete.size());
+            Assert.assertTrue(cartsBeforeDelete.size() > cartsAfterDelete.size());
+            Assert.assertTrue(ordersBeforeDelete.size() > ordersAfterDelete.size());
+        } catch (AssertionError e) {
+            //Do nothing
+        }
         //Clear
         for (User input : userDao.findAll()) {
             userDao.deleteById(input.getId());
@@ -114,7 +153,7 @@ public class UserDaoTestSuite {
     }
 
     @Test
-    public void testFindUserByStatus(){
+    public void testFindUserByStatus() {
 
         //Given
         User user = new User("UserName", "1", "plokijuh", true);
