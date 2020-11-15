@@ -13,13 +13,21 @@ public class Product {
     private String productName;
     public Group group;
     private List<Cart> carts = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
+
+    public Product() {
+    }
+
+    public Product(Long id, String productName, Group group, List<Cart> carts) {
+        this.id = id;
+        this.productName = productName;
+        this.group = group;
+        this.carts = carts;
+    }
 
     public Product(String productName) {
         this.productName = productName;
-    }
-
-    public Product() {
     }
 
     @Id
@@ -61,6 +69,26 @@ public class Product {
     )
     public List<Cart> getCarts() {
         return carts;
+    }
+
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(
+            name = "JOIN_ORDER_PRODUCT",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")}
+    )
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public void setCarts(List<Cart> carts) {

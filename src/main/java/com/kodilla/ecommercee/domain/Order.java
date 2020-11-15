@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -13,13 +15,14 @@ public class Order {
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
-    private Cart cart;
     public User user;
+    private List<Product> productList = new ArrayList<>();
 
-    public Order(Long id, LocalDate orderDate, Cart cart) {
+    public Order(Long id, LocalDate orderDate, User user, List<Product> productList) {
         this.id = id;
         this.orderDate = orderDate;
-        this.cart = cart;
+        this.user = user;
+        this.productList = productList;
     }
 
     public Order(LocalDate orderDate) {
@@ -43,25 +46,37 @@ public class Order {
         return orderDate;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CART_ID")
-    public Cart getCart() {
-
-        return cart;
-    }
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(
+            name = "JOIN_ORDER_PRODUCT",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
+    public List<Product> getProductList() {
+
+        return productList;
     }
 
-    public void setCart(Cart cart) {
+    public void setProductList(List<Product> productList) {
 
-        this.cart = cart;
+        this.productList = productList;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+
+        this.orderDate = orderDate;
     }
 
     public void setId(Long id) {
@@ -70,6 +85,7 @@ public class Order {
     }
 
     public void setUser(User user) {
+
         this.user = user;
     }
 }

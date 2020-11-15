@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ProductDao extends CrudRepository<Product, Long> {
+
     @Override
     List<Product> findAll();
 
